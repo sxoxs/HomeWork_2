@@ -1,5 +1,6 @@
 package logik;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -35,19 +36,29 @@ public class Task {
 
     private int[] shifter(int[] array, int n) {
         int temp = 0;
-        if ( n < 0) {
-            n = array.length + n;
+
+        if (n > 0) {
+            for (int j = 0; j < array.length - 1; j++) {
+                temp = array[j];
+                array[j] = array[array.length - 1];
+                array[array.length - 1] = temp;
+            }
+            n--;
         }
-        for (int j = 0; j < array.length - 1; j++) {
-            temp = array[j];
-            array[j] = array[array.length - 1];
-            array[array.length - 1] = temp;
+
+        if (n < 0) {
+            for (int j = array.length - 1; j > 0; j--) {
+                temp = array[j];
+                array[j] = array[0];
+                array[0] = temp;
+            }
+            n++;
         }
-        n = n - 1;
 
         if (n != 0) {
             array = shifter(array, n);
         }
+
         return array;
     }
 
